@@ -21,15 +21,6 @@ void setup() {
 }
 
 void loop() {
-  //reading currentTemp from a python code
-  // while (!Serial.available());
-  // currentTemp = Serial.readString().toInt();
-  // Serial.println(currentTemp,3);
-
-  // temperatureToColor(currentTemp);
-  // FastLED.show();
-  // delay(1000);
-
   if (Serial.available()) {
     String s = Serial.readStringUntil('\n'); // stop at newline
     currentTemp = s.toFloat();                // parse float
