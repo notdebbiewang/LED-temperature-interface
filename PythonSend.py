@@ -1,64 +1,38 @@
-#CODE: need to test getLatestTemp() on actual DR
-
 from so3g.hk import load_range
-#import datetime
 import datetime as dt
 import serial
 import time
 
-#stop = dt.datetime(2025, 7, 8, 23, 35, tzinfo=dt.timezone.utc)
-#start = dt.datetime(2025, 7, 8, 19, 34, tzinfo=dt.timezone.utc)
-
-#loading fields for channels 2,6
-#field2 = ["observatory.LSA2S5J.feeds.temperatures.Channel_02_T"]
-#field6 = ["observatory.LSA2S5J.feeds.temperatures.Channel_06_T"]
-
-#loading data for channels 2,6
-#data2 = load_range(start, stop, field2, data_dir="/Users/debbiewang/Documents/Research")
-#data6 = load_range(start, stop, field6, data_dir="/Users/debbiewang/Documents/Research")
-
-#TESTING: printing everything out
-#print("CHANNEL 2 \n", data2)
-#print("CHANNEL 6 \n", data6)
-
-#double arrays of time and temperature
-#timestamps2, values2 = data2["observatory.LSA2S5J.feeds.temperatures.Channel_02_T"]
-#timestamps6, values6 = data6["observatory.LSA2S5J.feeds.temperatures.Channel_06_T"]
-
-#figuring out which channel to poll
 data = {}
-
-#if 0 < values6[-1] < 4:                    
-#    data = (timestamps6, values6)
-#elif values2[-1] < 300:  
-#    data = (timestamps2, values2)
-#else:
-#    data = ([],[])
 
 #finding temperature
 timestamps, values = data
-#print("TEMP:", values[-1])
 
 def get_latest_temp():
+    #polling the most recent temperature
     stop = dt.datetime.now(dt.timezone.utc)
     start = stop - dt.timedelta(minutes=4)
 
     field2 = ["observatory.LSA2S5J.feeds.temperatures.Channel_02_T"]
     field6 = ["observatory.LSA2S5J.feeds.temperatures.Channel_06_T"]
 
+    #loading data for channels 2,6
     data2 = load_range(start, stop, field2, data_dir="/Users/debbiewang/Documents/Research")
     data6 = load_range(start, stop, field6, data_dir="/Users/debbiewang/Documents/Research")
 
+    #double arrays of time and temperature
     timestamps2, values2 = data2["observatory.LSA2S5J.feeds.temperatures.Channel_02_T"]
     timestamps6, values6 = data6["observatory.LSA2S5J.feeds.temperatures.Channel_06_T"]
 
-    if 0 < values6[-1] < 4:
+    #determining which thermometer to poll
+    if 0 < values6[-1] < 4: #cold stage
         return values6[-1]
-    elif values2[-1] < 300:
+    elif values2[-1] < 300: #initial cooling
         return values2[-1]
-    else:
+    else: #DR is room temperature
         return None
 
+#communicating with arduino
 arduino = serial.Serial(port='/dev/cu.usbmodem1101', baudrate=9600, timeout=10)
 time.sleep(5)
 
@@ -68,6 +42,7 @@ def write_read(x):
     #time.sleep(0.05)
     return arduino.readline().decode('utf-8').strip() #reading arduino
 
+#receiving arduino's response
 while True:
     temp_value = get_latest_temp()
     if temp_value is not None:
