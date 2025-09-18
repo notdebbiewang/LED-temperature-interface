@@ -29,7 +29,7 @@ This project provides an LED-based temperature interface for a dilution refriger
 - FastLED library: https://github.com/FastLED/FastLED
 
 ## Files
-### ArduinoScript
+### Arduino Script
 Arduino sketch to control LED strip based on the signals received from the Python script. It flashes when condensing begins. The colour range is as follows:
 - Above 273.15 K: White (no colour change)
 - 273.15 K: Red, fading into
