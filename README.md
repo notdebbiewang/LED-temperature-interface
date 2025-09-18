@@ -15,13 +15,18 @@ This project provides an LED-based temperature interface for a dilution refriger
 ## Software
 - Arduino IDE
 - Python 3.11 or lower (so3g only runs on Python 3.11 or lower)
+- Jupyter Notebook
 
-### Download the following repositories:
+### Requires the following repositories:
 - https://github.com/simonsobs/so3g
 - https://github.com/ceres-solver/ceres-solver
-- 
+- https://www.gnu.org/software/gsl/
+- https://github.com/abseil/abseil-cpp
+- https://github.com/pyserial/pyserial
+- https://github.com/numpy/numpy
 
 ## Files
 - ArduinoScript -> Arduino sketch to control LED strip
+- 
 
 A lot of my code is taken from Lawrence Lin's thermometer calibration code, which you can check out here: https://github.com/LawrenceTLin/NiemackLab/tree/main/Therm_cal
