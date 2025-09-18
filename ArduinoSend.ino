@@ -73,11 +73,6 @@ void temperatureToColor(float temp) {
     return;
   }
 
-  //flashing when at 40K
-  if (fabs(temp - t4) < 0.01){
-    flash();
-  }
-
   // GREEN -> CYAN | 40 K to 10 K
   if (temp > t5) {
     float frac = clamp01((t4 - temp) / (t4 - t5));   // 0 at t4, 1 at t5
@@ -92,6 +87,11 @@ void temperatureToColor(float temp) {
     uint8_t g = (uint8_t)(255 - frac * (255 - 128)); // 255 → 128
     fill_solid(leds, NUM_LEDS, CRGB(0, g, 255));     // (0,255,255) → (0,128,255)
     return;
+  }
+
+  //flashing when at 4 K ± 0.01 K
+  if (fabs(temp - t7) < 0.01){
+    flash();
   }
 
   // LIGHT BLUE -> DARK BLUE | 4 K to 0.01 K
