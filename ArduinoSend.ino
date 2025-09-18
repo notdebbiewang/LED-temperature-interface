@@ -1,5 +1,3 @@
-//TODO: flashing at 40K
-
 #include <FastLED.h>
 
 #define LED_PIN     4 //arduino pin
@@ -20,6 +18,7 @@ void setup() {
   Serial.setTimeout(10); //changed from 1 to 10
 }
 
+// communicating with the python code connected to the lakeshore
 void loop() {
   if (Serial.available()) {
     String s = Serial.readStringUntil('\n'); // stop at newline
@@ -30,6 +29,7 @@ void loop() {
   }
 }
 
+// changing colour based on temperature
 void temperatureToColor(float temp) {
   //bounds (upper --> lower)
   const float t1 = 273.15; // room temp (white above this, no fade)
@@ -106,6 +106,7 @@ void temperatureToColor(float temp) {
   fill_solid(leds, NUM_LEDS, CRGB(128, 0, 128));
 }
 
+// flashing when next cooldown stage begins
 void flash() {
   // Flash LEDs on
   fill_solid(leds, NUM_LEDS, CRGB::Green);
