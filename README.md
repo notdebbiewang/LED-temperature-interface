@@ -26,7 +26,7 @@ This project provides an LED-based temperature interface for a dilution refriger
 - https://github.com/numpy/numpy
 
 ## Files
-- ArduinoScript -> Arduino sketch to control LED strip
+- ArduinoScript --> Arduino sketch to control LED strip
 - 
 
 A lot of my code is taken from Lawrence Lin's thermometer calibration code, which you can check out here: https://github.com/LawrenceTLin/NiemackLab/tree/main/Therm_cal
