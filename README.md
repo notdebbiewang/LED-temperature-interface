@@ -44,3 +44,4 @@ Arduino sketch to control LED strip based on the signals received from the Pytho
 Python script to grab temperature from the Model 372 AC Resistance Bridge. It switches channels (thermometers) based on which stage of cooldown the dilution refrigerator is at.
 
 A lot of my code is taken from Lawrence Lin's thermometer calibration code, which you can check out here: https://github.com/LawrenceTLin/NiemackLab/tree/main/Therm_cal
+
